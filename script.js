@@ -70,3 +70,30 @@ document.querySelectorAll('[data-copy]').forEach(button => {
         }
     });
 });
+
+// ===== 深色模式切换 =====
+(function initTheme() {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    const STORAGE_KEY = 'theme';
+    const DARK = 'dark';
+
+    function apply(theme) {
+        if (theme === DARK) {
+            document.documentElement.setAttribute('data-theme', DARK);
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+    }
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === DARK) apply(DARK);
+
+    toggle.addEventListener('click', () => {
+        const isDark = document.documentElement.hasAttribute('data-theme');
+        const next = isDark ? null : DARK;
+        apply(next);
+        localStorage.setItem(STORAGE_KEY, next || 'light');
+    });
+})();
