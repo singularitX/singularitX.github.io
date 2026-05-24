@@ -710,20 +710,28 @@ h3 {
     transform: translateY(0);
 }
 
+@media (min-width: 921px) {
+    .theme-toggle {
+        order: 2;
+    }
+    .nav-links {
+        order: 1;
+    }
+}
+
 @media (max-width: 920px) {
     .nav-toggle {
         display: block;
     }
 
     .theme-toggle {
-        position: absolute;
-        right: 54px;
-        top: 50%;
-        transform: translateY(-50%);
         width: 42px;
         height: 42px;
         margin-left: 0;
-        display: flex;
+        border-radius: 50%;
+        background: var(--surface);
+        box-shadow: 0 1px 0 var(--line);
+        display: inline-flex;
         align-items: center;
         justify-content: center;
     }
