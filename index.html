@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="你的名字的个人网站，展示作品、经历、技能和联系方式。">
+    <title>你的名字 - 个人网站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header" id="site-header">
+        <nav class="nav" aria-label="主导航">
+            <a class="brand" href="#home" aria-label="回到首页">
+                <span class="brand-mark">S</span>
+                <span>Singularity</span>
+            </a>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+                <span class="toggle-track">
+                    <span class="toggle-thumb">
+                        <svg class="icon-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                        <svg class="icon-moon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </span>
+            </button>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span class="sr-only">打开导航</span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="#about">关于</a>
+                <a href="#work">作品</a>
+                <a href="#experience">经历</a>
+                <a href="#contact">联系</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <p class="eyebrow">个人网站 / Portfolio</p>
+                    <h1>你好，我是<span>Singularity</span></h1>
+                    <p class="hero-lead">
+                        我专注于把想法做成清晰、可靠、有温度的数字产品。这里记录我的项目、经验和正在探索的方向。
+                    </p>
+                    <div class="hero-actions" aria-label="主要操作">
+                        <a class="button primary" href="#work">查看作品</a>
+                        <a class="button secondary" href="mailto:hello@example.com">联系我</a>
+                    </div>
+                    <dl class="hero-facts" aria-label="个人概览">
+                        <div>
+                            <dt>方向</dt>
+                            <dd>产品设计 / 前端开发</dd>
+                        </div>
+                        <div>
+                            <dt>城市</dt>
+                            <dd>你的城市</dd>
+                        </div>
+                        <div>
+                            <dt>状态</dt>
+                            <dd>开放合作</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="hero-visual" aria-label="个人形象展示">
+                    <div class="portrait">
+                        <div class="portrait-glow"></div>
+                        <div class="portrait-card">
+                            <span class="portrait-initials">YN</span>
+                            <p>把复杂问题整理成可执行的方案。</p>
+                        </div>
+                    </div>
+                    <div class="signal-list" aria-label="个人关键词">
+                        <span>Design Systems</span>
+                        <span>Web Apps</span>
+                        <span>AI Workflow</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="section-label">About</div>
+            <div class="split-layout">
+                <div>
+                    <h2>我喜欢在技术、审美和真实需求之间搭桥。</h2>
+                </div>
+                <div class="prose">
+                    <p>
+                        这里可以写你的个人简介：你是谁、正在做什么、擅长什么，以及你希望别人如何理解你的工作方式。
+                    </p>
+                    <p>
+                        建议保持具体：比如你服务过的行业、做过的产品类型、常用技术栈、你对好作品的判断标准。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section highlights" aria-label="核心优势">
+            <article class="highlight reveal">
+                <span class="highlight-icon">01</span>
+                <h3>清晰表达</h3>
+                <p>把模糊需求拆成结构化方案，让沟通、设计和开发都更顺畅。</p>
+            </article>
+            <article class="highlight reveal">
+                <span class="highlight-icon">02</span>
+                <h3>快速落地</h3>
+                <p>从原型、页面到上线细节，关注可用性，也关注实现成本。</p>
+            </article>
+            <article class="highlight reveal">
+                <span class="highlight-icon">03</span>
+                <h3>持续打磨</h3>
+                <p>用数据、反馈和复盘迭代作品，让体验逐步变得更稳。</p>
+            </article>
+        </section>
+
+        <section class="section work" id="work">
+            <div class="section-heading">
+                <div>
+                    <div class="section-label">Selected Work</div>
+                    <h2>近期作品</h2>
+                </div>
+                <a class="text-link" href="mailto:hello@example.com">获取完整作品集</a>
+            </div>
+
+            <div class="work-grid">
+                <article class="work-item reveal">
+                    <div class="work-media media-one">
+                        <span>01</span>
+                    </div>
+                    <div class="work-content">
+                        <p class="work-type">Web App / 2026</p>
+                        <h3>项目名称一</h3>
+                        <p>一句话说明这个项目解决了什么问题、你的职责是什么、最终带来了什么结果。</p>
+                        <a href="#" aria-label="查看项目名称一">查看详情</a>
+                    </div>
+                </article>
+
+                <article class="work-item reveal">
+                    <div class="work-media media-two">
+                        <span>02</span>
+                    </div>
+                    <div class="work-content">
+                        <p class="work-type">Product Design / 2025</p>
+                        <h3>项目名称二</h3>
+                        <p>可以放一个产品改版、品牌页面、工具型应用，突出你的思考和交付能力。</p>
+                        <a href="#" aria-label="查看项目名称二">查看详情</a>
+                    </div>
+                </article>
+
+                <article class="work-item reveal">
+                    <div class="work-media media-three">
+                        <span>03</span>
+                    </div>
+                    <div class="work-content">
+                        <p class="work-type">Experiment / 2025</p>
+                        <h3>项目名称三</h3>
+                        <p>这里适合展示个人实验、开源项目、AI 工作流或你想长期更新的创作。</p>
+                        <a href="#" aria-label="查看项目名称三">查看详情</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section experience" id="experience">
+            <div class="section-heading">
+                <div>
+                    <div class="section-label">Experience</div>
+                    <h2>经历与技能</h2>
+                </div>
+            </div>
+
+            <div class="experience-layout">
+                <div class="timeline">
+                    <article class="timeline-item reveal">
+                        <time>2024 - 现在</time>
+                        <div>
+                            <h3>你的当前职位或身份</h3>
+                            <p>描述你现在负责的方向、核心职责和代表成果。</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item reveal">
+                        <time>2022 - 2024</time>
+                        <div>
+                            <h3>上一段经历</h3>
+                            <p>写下你积累的方法论、合作对象、项目规模或成长节点。</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item reveal">
+                        <time>更早</time>
+                        <div>
+                            <h3>学习与探索</h3>
+                            <p>补充教育背景、转型经历、重要证书或长期兴趣。</p>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="toolbox reveal">
+                    <h3>常用能力</h3>
+                    <div class="tag-list">
+                        <span>HTML / CSS</span>
+                        <span>JavaScript</span>
+                        <span>React</span>
+                        <span>UI Design</span>
+                        <span>Content Strategy</span>
+                        <span>AI Tools</span>
+                        <span>Research</span>
+                        <span>Prototyping</span>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="contact-inner">
+                <p class="eyebrow">Contact</p>
+                <h2>如果你有一个想法，我们可以聊聊。</h2>
+                <p>把这里替换成你的真实邮箱、社交媒体或作品集链接。也可以写一句你欢迎哪类合作。</p>
+                <div class="contact-actions">
+                    <a class="button primary" href="mailto:hello@example.com">hello@example.com</a>
+                    <button class="button secondary" type="button" data-copy="hello@example.com">复制邮箱</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Singularity. All rights reserved.</p>
+        <a href="#home">回到顶部</a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
