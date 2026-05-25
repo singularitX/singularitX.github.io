@@ -97,3 +97,77 @@ document.querySelectorAll('[data-copy]').forEach(button => {
         localStorage.setItem(STORAGE_KEY, next || 'light');
     });
 })();
+
+(function initRobotHero() {
+  const canvas = document.getElementById('robotCanvas');
+  if (!canvas) return;
+
+  const script1 = document.createElement('script');
+  script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  script1.onload = function() {
+    const script2 = document.createElement('script');
+    script2.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
+    script2.onload = function() {
+      const W = canvas.parentElement.offsetWidth * 0.6;
+      const H = canvas.parentElement.offsetHeight;
+      canvas.width = W; canvas.height = H;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(W, H);
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.outputEncoding = THREE.sRGBEncoding;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100);
+      camera.position.set(0, 1, 5);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+      const dir = new THREE.DirectionalLight(0x5b7cf0, 2);
+      dir.position.set(3, 5, 5);
+      scene.add(dir);
+      const rim = new THREE.DirectionalLight(0x2dbfb6, 1);
+      rim.position.set(-3, 0, -3);
+      scene.add(rim);
+
+      let robot = null;
+      let mx = 0, my = 0, trx = 0, tryy = 0;
+
+      const loader = new THREE.GLTFLoader();
+      loader.load('crossspace_robot_default_skin.glb', function(gltf) {
+        robot = gltf.scene;
+        const box = new THREE.Box3().setFromObject(robot);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 3 / maxDim;
+        robot.scale.setScalar(scale);
+        robot.position.sub(center.multiplyScalar(scale));
+        robot.position.y -= 0.5;
+        scene.add(robot);
+      });
+
+      canvas.parentElement.addEventListener('mousemove', e => {
+        const r = canvas.parentElement.getBoundingClientRect();
+        mx = (e.clientX - r.left) / r.width;
+        my = (e.clientY - r.top) / r.height;
+        trx = (my - 0.5) * 0.4;
+        tryy = (mx - 0.5) * 0.6;
+      });
+
+      let t = 0;
+      function animate() {
+        requestAnimationFrame(animate);
+        t += 0.008;
+        if (robot) {
+          robot.rotation.x += (trx - robot.rotation.x) * 0.05;
+          robot.rotation.y += (tryy - robot.rotation.y) * 0.05;
+          robot.position.y = -0.5 + Math.sin(t) * 0.05;
+        }
+        renderer.render(scene, camera);
+      }
+      animate();
+    };
+    document.head.appendChild(script2);
+  };
+  document.head.appendChild(script1);
+})();
