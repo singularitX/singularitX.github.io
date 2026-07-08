@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 液态玻璃 SVG 滤镜：feTurbulence 生成噪声 → feGaussianBlur 柔化 → feDisplacementMap 折射扭曲 -->
+    <svg style="display:none" aria-hidden="true">
+        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+            <feTurbulence type="fractalNoise" baseFrequency="0.002 0.006" numOctaves="3" seed="7" result="turbulence" />
+            <feGaussianBlur in="turbulence" stdDeviation="2.5" result="softNoise" />
+            <feDisplacementMap in="SourceGraphic" in2="softNoise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="glass-micro-texture" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+            <feTurbulence type="fractalNoise" baseFrequency="0.08 0.06" numOctaves="2" seed="3" result="micro" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0" in="micro" result="alpha" />
+        </filter>
+    </svg>
     <header class="site-header" id="site-header">
         <nav class="nav" aria-label="主导航">
             <a class="brand active" href="#home" aria-label="回到首页">
-                <span>首页</span>
+                首页
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="#about">关于</a>

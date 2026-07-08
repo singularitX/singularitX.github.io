@@ -233,6 +233,12 @@ function init() {
         ScrollFX.scrollTo(0, { duration: 0.6 });
     });
 
+    // ── Footer "回到顶部" scrolls to top ───────────────
+    document.querySelector('.footer a[href^="#"]')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        ScrollFX.scrollTo(0, { duration: 0.8 });
+    });
+
     // ── Active nav tracking ────────────────────────────
     const sectionIds = ['home', ...[...sectionLinks].map(l => l.getAttribute('href').slice(1))];
     const brandLink = document.querySelector('.brand');
