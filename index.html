@@ -10,45 +10,48 @@
 <body>
     <header class="site-header" id="site-header">
         <nav class="nav" aria-label="主导航">
-            <a class="brand" href="#home" aria-label="回到首页">
-                <span class="brand-mark">S</span>
-                <span>Singularity</span>
+            <a class="brand active" href="#home" aria-label="回到首页">
+                <span>首页</span>
             </a>
-            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
-                <span class="toggle-track">
-                    <span class="toggle-thumb">
-                        <svg class="icon-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                        <svg class="icon-moon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <div class="nav-links" id="nav-links">
+                <a href="#about">关于</a>
+                <a href="#work">作品</a>
+                <a href="#experience">经历</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+                    <span class="toggle-track">
+                        <span class="toggle-thumb">
+                            <svg class="icon-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                            <svg class="icon-moon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        </span>
                     </span>
-                </span>
-            </button>
+                </button>
+                <a class="nav-cta" href="#contact">开始合作</a>
+            </div>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span class="sr-only">打开导航</span>
             </button>
-            <div class="nav-links" id="nav-links">
-                <a href="#about">关于</a>
-                <a href="#work">作品</a>
-                <a href="#experience">经历</a>
-                <a href="#contact">联系</a>
-            </div>
         </nav>
     </header>
+
+    <div class="scroll-wrapper">
 
     <main>
         <section class="hero" id="home">
             <div class="hero-inner">
                 <div class="hero-copy">
                     <p class="eyebrow">个人网站 / Portfolio</p>
-                    <h1>你好，我是<span>Singularity</span></h1>
+                    <h1>您好，欢迎来到<span>我的网站</span></h1>
                     <p class="hero-lead">
                         我专注于把想法做成清晰、可靠、有温度的数字产品。这里记录我的项目、经验和正在探索的方向。
                     </p>
                     <div class="hero-actions" aria-label="主要操作">
                         <a class="button primary" href="#work">查看作品</a>
-                        <a class="button secondary" href="mailto:hello@example.com">联系我</a>
+                        <a class="button secondary" href="#contact">联系我</a>
                     </div>
                     <dl class="hero-facts" aria-label="个人概览">
                         <div>
@@ -56,8 +59,8 @@
                             <dd>产品设计 / 前端开发</dd>
                         </div>
                         <div>
-                            <dt>城市</dt>
-                            <dd>你的城市</dd>
+                            <dt>坐标</dt>
+                            <dd>广东</dd>
                         </div>
                         <div>
                             <dt>状态</dt>
@@ -218,21 +221,55 @@
         <section class="contact" id="contact">
             <div class="contact-inner">
                 <p class="eyebrow">Contact</p>
-                <h2>如果你有一个想法，我们可以聊聊。</h2>
-                <p>把这里替换成你的真实邮箱、社交媒体或作品集链接。也可以写一句你欢迎哪类合作。</p>
+                <h2>如果你有想法，我们可以聊聊。</h2>
+                <p>Attention Is All You Need.</p>
                 <div class="contact-actions">
-                    <a class="button primary" href="mailto:hello@example.com">hello@example.com</a>
-                    <button class="button secondary" type="button" data-copy="hello@example.com">复制邮箱</button>
+                    <a class="button primary" href="mailto:hsingularitx@gmail.com">hsingularitx@gmail.com</a>
+                    <button class="button secondary" type="button" data-copy="hsingularitx@gmail.com">复制邮箱</button>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <p>© 2026 Singularity. All rights reserved.</p>
+        <p>© 2026 黄俊怀</p>
         <a href="#home">回到顶部</a>
     </footer>
 
+    </div><!-- /scroll-wrapper -->
+
+    <script>
+        // Theme toggle — 内联优先绑定，不依赖外部 JS，规避 file:// 缓存/加载问题
+        (function () {
+            function bind() {
+                var toggle = document.getElementById('theme-toggle');
+                if (!toggle || toggle.dataset.bound === '1') return;
+                toggle.dataset.bound = '1';
+                var KEY = 'theme';
+                var DARK = 'dark';
+                function apply(theme) {
+                    // 必须用 setAttribute 设置 data-theme="dark"，toggleAttribute 只会设空值导致 CSS 选择器不匹配
+                    if (theme === DARK) {
+                        document.documentElement.setAttribute('data-theme', DARK);
+                    } else {
+                        document.documentElement.removeAttribute('data-theme');
+                    }
+                }
+                // 打开网页默认浅色，不读取之前保存的深色偏好
+                toggle.addEventListener('click', function () {
+                    var isDark = document.documentElement.getAttribute('data-theme') === DARK;
+                    var next = isDark ? null : DARK;
+                    apply(next);
+                    try { localStorage.setItem(KEY, next || 'light'); } catch (e) {}
+                });
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', bind);
+            } else {
+                bind();
+            }
+        })();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

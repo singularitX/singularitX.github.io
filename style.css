@@ -12,6 +12,8 @@
     --coral: #d85f4b;
     --radius: 8px;
     --shadow: 0 24px 70px rgba(24, 32, 42, 0.12);
+    --noise-tile: 12.8rem;
+    --noise-bg: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 [data-theme="dark"] {
@@ -35,9 +37,25 @@
         linear-gradient(180deg, #0f1117 0%, #16181f 100%);
 }
 
-[data-theme="dark"] .site-header.scrolled {
-    background: rgba(15, 17, 23, 0.88);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+[data-theme="dark"] .site-header.scrolled .nav {
+    background: rgba(15, 17, 23, 0.98);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .nav {
+    background: rgba(15, 17, 23, 0.72);
+    border-color: var(--line);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .nav-cta {
+    color: var(--ink);
+    background: var(--surface);
+}
+
+[data-theme="dark"] .nav-cta:hover {
+    color: #fff;
+    background: var(--blue);
 }
 
 [data-theme="dark"] .hero-lead,
@@ -65,8 +83,10 @@
     background: rgba(255, 255, 255, 0.08);
 }
 
-[data-theme="dark"] .brand-mark {
-    background: var(--blue);
+[data-theme="dark"] .brand:hover,
+[data-theme="dark"] .brand.active {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="dark"] .timeline {
@@ -79,6 +99,128 @@
     box-shadow: inset 0 0 0 1px var(--line);
 }
 
+/* ============================================================
+   Smooth Scroll Wrapper (lerp-driven)
+   ============================================================ */
+html.has-smooth-scroll,
+html.has-smooth-scroll body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.scroll-wrapper {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* ============================================================
+   Noise texture
+   ============================================================ */
+.hw-noise {
+    position: relative;
+}
+.hw-noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--noise-bg);
+    background-repeat: repeat;
+    background-size: var(--noise-tile) var(--noise-tile);
+    mix-blend-mode: color-burn;
+    opacity: 0.12;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .hw-noise::after {
+    opacity: 0.2;
+}
+
+/* ============================================================
+   Arc hover animation (Hermes gradient border stroke)
+   ============================================================ */
+.hw-arc-card {
+    position: relative;
+}
+
+.hw-arc {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        160deg,
+        transparent 0%,
+        var(--line) 15%,
+        var(--blue) 20%,
+        var(--bg) 25%,
+        transparent 35% 40%,
+        var(--line) 55%,
+        var(--blue) 60%,
+        var(--bg) 65%,
+        transparent 75% 80%,
+        var(--line) 95%,
+        var(--blue) 100%
+    );
+    background-size: 300% 300%;
+    padding: 1.25px;
+    mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+    mask-clip: content-box, border-box;
+    mask-composite: exclude;
+    -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+    -webkit-mask-clip: content-box, border-box;
+    -webkit-mask-composite: xor;
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+}
+
+.hw-arc-card:hover .hw-arc,
+.hw-arc-card:focus-within .hw-arc {
+    animation: arc-stroke-travel 2.2s linear infinite;
+    opacity: 1;
+}
+
+@keyframes arc-stroke-travel {
+    0%   { background-position: 15% 15%; }
+    100% { background-position: 75% 75%; }
+}
+
+/* ============================================================
+   Parallax (scroll-driven via JS --py / --py-img)
+   ============================================================ */
+.parallax-section {
+    z-index: 2;
+}
+
+.parallax-content {
+    --py: 0px;
+    transform: translate3d(0, var(--py), 0);
+    will-change: transform;
+}
+
+.parallax-img {
+    --py-img: 0px;
+    transform: translate3d(0, var(--py-img), 0) scale(1.08);
+    will-change: transform;
+}
+
+/* ============================================================
+   Footer reveal (scroll-driven via JS)
+   ============================================================ */
+.footer-reveal {
+    --hw-footer-opacity: 0;
+    --hw-footer-pe: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: var(--hw-footer-pe);
+    opacity: var(--hw-footer-opacity);
+    transition: opacity 100ms ease;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
 *,
 *::before,
 *::after {
@@ -86,7 +228,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 body {
@@ -122,52 +264,72 @@ button {
     border: 0;
 }
 
+/* ============================================================
+   Header
+   ============================================================ */
 .site-header {
     position: fixed;
-    inset: 0 0 auto;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
-    transition: background 180ms ease, box-shadow 180ms ease;
+    width: auto;
+    max-width: calc(100% - 40px);
+    transition: transform 180ms ease;
 }
 
-.site-header.scrolled {
-    background: rgba(251, 250, 247, 0.86);
-    box-shadow: 0 1px 0 rgba(24, 32, 42, 0.08);
-    backdrop-filter: blur(16px);
+.site-header.scrolled .nav {
+    background: rgba(251, 250, 247, 0.98);
+    box-shadow: 0 20px 60px rgba(24, 32, 42, 0.16);
 }
 
 .nav {
     position: relative;
-    width: min(1120px, calc(100% - 40px));
-    height: 72px;
+    width: auto;
+    min-width: min(840px, calc(100% - 40px));
+    max-width: 100%;
+    height: auto;
+    min-height: 56px;
     margin: 0 auto;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(251, 250, 247, 0.72);
+    box-shadow: 0 10px 30px rgba(24, 32, 42, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: background 280ms ease, box-shadow 280ms ease, border-color 180ms ease;
 }
 
 .brand {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    padding: 8px 12px;
+    border-radius: 999px;
     font-weight: 800;
+    cursor: pointer;
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: color 180ms ease, background 180ms ease;
 }
 
-.brand-mark {
-    width: 34px;
-    height: 34px;
-    display: grid;
-    place-items: center;
-    color: #fff;
-    background: var(--ink);
-    border-radius: 50%;
-    font-size: 16px;
+.brand:hover,
+.brand.active {
+    color: var(--ink);
+    background: rgba(24, 32, 42, 0.06);
 }
 
 .nav-links {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    margin: 0 auto;
 }
 
 .nav-links a {
@@ -176,6 +338,7 @@ button {
     color: var(--muted);
     font-size: 14px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .nav-links a:hover,
@@ -184,13 +347,44 @@ button {
     background: rgba(24, 32, 42, 0.06);
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 999px;
+    color: #fff;
+    background: var(--ink);
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    cursor: pointer;
+}
+
+.nav-cta:hover {
+    transform: translateY(-2px);
+    background: var(--blue);
+    box-shadow: 0 10px 24px rgba(49, 87, 213, 0.22);
+}
+
+/* ============================================================
+   Theme toggle
+   ============================================================ */
 .theme-toggle {
     display: inline-flex;
     align-items: center;
-    margin-left: 24px;
     padding: 0;
     background: none;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .toggle-track {
@@ -252,6 +446,9 @@ button {
     background: var(--ink);
 }
 
+/* ============================================================
+   Hero
+   ============================================================ */
 .hero {
     min-height: 100vh;
     padding: 128px 0 72px;
@@ -287,14 +484,21 @@ button {
 .hero h1 {
     margin: 0;
     max-width: 720px;
-    font-size: clamp(48px, 8vw, 92px);
+    font-size: clamp(40px, 6.5vw, 72px);
     line-height: 0.95;
     letter-spacing: 0;
+}
+
+@media (max-width: 680px) {
+    .hero h1 {
+        font-size: clamp(32px, 8vw, 48px);
+    }
 }
 
 .hero h1 span {
     display: block;
     color: var(--blue);
+    margin-top: 0.14em;
 }
 
 .hero-lead {
@@ -312,6 +516,9 @@ button {
     margin-top: 32px;
 }
 
+/* ============================================================
+   Buttons
+   ============================================================ */
 .button {
     display: inline-flex;
     min-height: 46px;
@@ -344,6 +551,9 @@ button {
     box-shadow: inset 0 0 0 1px var(--line);
 }
 
+/* ============================================================
+   Hero facts
+   ============================================================ */
 .hero-facts {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -369,6 +579,9 @@ button {
     font-weight: 800;
 }
 
+/* ============================================================
+   Hero visual / portrait
+   ============================================================ */
 .hero-visual {
     position: relative;
     min-height: 520px;
@@ -444,6 +657,9 @@ button {
     font-weight: 800;
 }
 
+/* ============================================================
+   Signal / tag lists
+   ============================================================ */
 .signal-list {
     display: flex;
     flex-wrap: wrap;
@@ -465,6 +681,9 @@ button {
     font-weight: 800;
 }
 
+/* ============================================================
+   Sections
+   ============================================================ */
 .section {
     padding: 92px 0;
 }
@@ -494,6 +713,9 @@ h3 {
     font-size: 18px;
 }
 
+/* ============================================================
+   Highlights
+   ============================================================ */
 .highlights {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -544,6 +766,9 @@ h3 {
     color: var(--blue-dark);
 }
 
+/* ============================================================
+   Work grid
+   ============================================================ */
 .work-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -600,6 +825,9 @@ h3 {
     font-weight: 800;
 }
 
+/* ============================================================
+   Timeline
+   ============================================================ */
 .experience-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 340px;
@@ -651,6 +879,9 @@ h3 {
     margin-top: 20px;
 }
 
+/* ============================================================
+   Contact
+   ============================================================ */
 .contact {
     width: min(1120px, calc(100% - 40px));
     margin: 40px auto 0;
@@ -674,6 +905,7 @@ h3 {
 
 .contact h2 {
     max-width: 760px;
+    white-space: nowrap;
 }
 
 .contact .button.secondary {
@@ -682,6 +914,9 @@ h3 {
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.24);
 }
 
+/* ============================================================
+   Footer
+   ============================================================ */
 .footer {
     display: flex;
     justify-content: space-between;
@@ -699,6 +934,9 @@ h3 {
     font-weight: 800;
 }
 
+/* ============================================================
+   Reveal (intersection observer)
+   ============================================================ */
 .reveal {
     opacity: 0;
     transform: translateY(18px);
@@ -710,34 +948,43 @@ h3 {
     transform: translateY(0);
 }
 
-@media (min-width: 921px) {
-    .theme-toggle {
-        order: 2;
-    }
-    .nav-links {
-        order: 1;
-    }
-}
-
+/* ============================================================
+   Responsive
+   ============================================================ */
 @media (max-width: 920px) {
+    .nav {
+        min-width: 0;
+        gap: 10px;
+    }
+
     .nav-toggle {
         display: block;
+        width: 38px;
+        height: 38px;
+        padding: 9px;
     }
 
     .theme-toggle {
-        width: 42px;
-        height: 42px;
+        width: 38px;
+        height: 38px;
         margin-left: 0;
         display: inline-flex;
         align-items: center;
         justify-content: center;
     }
 
+    .nav-cta {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
     .nav-links {
         position: fixed;
-        top: 72px;
-        left: 20px;
-        right: 20px;
+        top: calc(16px + 56px + 12px);
+        left: 50%;
+        right: auto;
+        width: min(480px, calc(100% - 40px));
+        transform: translateX(-50%);
         display: none;
         flex-direction: column;
         align-items: stretch;
@@ -746,6 +993,11 @@ h3 {
         border: 1px solid var(--line);
         border-radius: var(--radius);
         box-shadow: var(--shadow);
+        z-index: 20;
+    }
+
+    [data-theme="dark"] .nav-links {
+        background: rgba(26, 29, 36, 0.96);
     }
 
     .nav-links.open {
